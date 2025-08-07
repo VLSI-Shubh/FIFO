@@ -1,0 +1,205 @@
+#! /c/iverilog/bin/vvp
+:ivl_version "0.9.7 " "(v0_9_7)";
+:vpi_time_precision - 9;
+:vpi_module "system";
+:vpi_module "v2005_math";
+:vpi_module "va_math";
+S_012E8048 .scope module, "fifo_tb" "fifo_tb" 2 4;
+ .timescale -9 -9;
+P_011F252C .param/l "WIDTH" 2 6, +C4<01000>;
+v01200E48_0 .var "clk", 0 0;
+v01200F50_0 .var "data_in", 7 0;
+v012013C8_0 .net "data_out", 7 0, v012EAC38_0; 1 drivers
+v01200DF0_0 .net "empty", 0 0, L_01201370; 1 drivers
+v01201420_0 .net "full", 0 0, L_01201318; 1 drivers
+v01201210_0 .var "rd", 0 0;
+v01200EA0_0 .var "rst", 0 0;
+v01201000_0 .var "wr", 0 0;
+S_012E8378 .scope module, "uut" "fifo" 2 14, 3 17, S_012E8048;
+ .timescale -9 -9;
+P_012ECE7C .param/l "depth" 3 18, +C4<01000>;
+P_012ECE90 .param/l "ptr_depth" 3 41, +C4<00000000000000000000000000000011>;
+P_012ECEA4 .param/l "width" 3 19, +C4<01000>;
+L_01204868 .functor NOT 1, L_01201268, C4<0>, C4<0>, C4<0>;
+v012E2FF8_0 .net *"_s1", 0 0, L_01201268; 1 drivers
+v012E9DA0_0 .net *"_s2", 0 0, L_01204868; 1 drivers
+v012E9DF8_0 .net *"_s5", 2 0, L_01201058; 1 drivers
+v012EAB30_0 .net *"_s6", 3 0, L_012012C0; 1 drivers
+v012EAB88_0 .net "clk", 0 0, v01200E48_0; 1 drivers
+v012EABE0_0 .net "data_in", 7 0, v01200F50_0; 1 drivers
+v012EAC38_0 .var "data_out", 7 0;
+v01202DF8_0 .alias "empty", 0 0, v01200DF0_0;
+v01202E50 .array "fifo", 7 0, 7 0;
+v01202EA8_0 .alias "full", 0 0, v01201420_0;
+v01202F00_0 .net "rd", 0 0, v01201210_0; 1 drivers
+v012E3288_0 .var "rd_ptr", 3 0;
+v012E32E0_0 .net "rst", 0 0, v01200EA0_0; 1 drivers
+v012011B8_0 .net "wr", 0 0, v01201000_0; 1 drivers
+v01201108_0 .var "wr_ptr", 3 0;
+E_011F2708 .event posedge, v012E32E0_0, v012EAB88_0;
+L_01201268 .part v01201108_0, 3, 1;
+L_01201058 .part v01201108_0, 0, 3;
+L_012012C0 .concat [ 3 1 0 0], L_01201058, L_01204868;
+L_01201318 .cmp/eq 4, v012E3288_0, L_012012C0;
+L_01201370 .cmp/eq 4, v012E3288_0, v01201108_0;
+    .scope S_012E8378;
+T_0 ;
+    %wait E_011F2708;
+    %load/v 8, v012E32E0_0, 1;
+    %jmp/0xz  T_0.0, 8;
+    %ix/load 0, 4, 0;
+    %assign/v0 v01201108_0, 0, 0;
+    %jmp T_0.1;
+T_0.0 ;
+    %load/v 8, v012011B8_0, 1;
+    %load/v 9, v01202EA8_0, 1;
+    %inv 9, 1;
+    %and 8, 9, 1;
+    %jmp/0xz  T_0.2, 8;
+    %load/v 8, v012EABE0_0, 8;
+    %load/v 16, v01201108_0, 3; Only need 3 of 4 bits
+; Save base=16 wid=3 in lookaside.
+    %ix/get 3, 16, 3;
+    %jmp/1 t_0, 4;
+    %ix/load 0, 8, 0; word width
+    %ix/load 1, 0, 0; part off
+    %assign/av v01202E50, 0, 8;
+t_0 ;
+    %ix/load 0, 1, 0;
+    %load/vp0 8, v01201108_0, 4;
+    %ix/load 0, 4, 0;
+    %assign/v0 v01201108_0, 0, 8;
+T_0.2 ;
+T_0.1 ;
+    %jmp T_0;
+    .thread T_0;
+    .scope S_012E8378;
+T_1 ;
+    %wait E_011F2708;
+    %load/v 8, v012E32E0_0, 1;
+    %jmp/0xz  T_1.0, 8;
+    %ix/load 0, 8, 0;
+    %assign/v0 v012EAC38_0, 0, 0;
+    %ix/load 0, 4, 0;
+    %assign/v0 v012E3288_0, 0, 0;
+    %jmp T_1.1;
+T_1.0 ;
+    %load/v 8, v01202F00_0, 1;
+    %load/v 9, v01202DF8_0, 1;
+    %inv 9, 1;
+    %and 8, 9, 1;
+    %jmp/0xz  T_1.2, 8;
+    %load/v 16, v012E3288_0, 3; Only need 3 of 4 bits
+; Save base=16 wid=3 in lookaside.
+    %ix/get 3, 16, 3;
+    %load/av 8, v01202E50, 8;
+    %ix/load 0, 8, 0;
+    %assign/v0 v012EAC38_0, 0, 8;
+    %ix/load 0, 1, 0;
+    %load/vp0 8, v012E3288_0, 4;
+    %ix/load 0, 4, 0;
+    %assign/v0 v012E3288_0, 0, 8;
+    %jmp T_1.3;
+T_1.2 ;
+    %ix/load 0, 8, 0;
+    %assign/v0 v012EAC38_0, 0, 3;
+T_1.3 ;
+T_1.1 ;
+    %jmp T_1;
+    .thread T_1;
+    .scope S_012E8048;
+T_2 ;
+    %set/v v01200E48_0, 0, 1;
+T_2.0 ;
+    %delay 5, 0;
+    %load/v 8, v01200E48_0, 1;
+    %inv 8, 1;
+    %set/v v01200E48_0, 8, 1;
+    %jmp T_2.0;
+    %end;
+    .thread T_2;
+    .scope S_012E8048;
+T_3 ;
+    %vpi_call 2 32 "$dumpfile", "fifo_tb.vcd";
+    %vpi_call 2 33 "$dumpvars", 1'sb0, S_012E8048;
+    %end;
+    .thread T_3;
+    .scope S_012E8048;
+T_4 ;
+    %set/v v01200EA0_0, 1, 1;
+    %set/v v01201000_0, 0, 1;
+    %set/v v01201210_0, 0, 1;
+    %set/v v01200F50_0, 0, 8;
+    %delay 13, 0;
+    %set/v v01200EA0_0, 0, 1;
+    %delay 10, 0;
+    %set/v v01201000_0, 1, 1;
+    %movi 8, 10, 8;
+    %set/v v01200F50_0, 8, 8;
+    %delay 10, 0;
+    %set/v v01201000_0, 1, 1;
+    %movi 8, 20, 8;
+    %set/v v01200F50_0, 8, 8;
+    %delay 10, 0;
+    %set/v v01201000_0, 1, 1;
+    %movi 8, 30, 8;
+    %set/v v01200F50_0, 8, 8;
+    %delay 10, 0;
+    %set/v v01201000_0, 0, 1;
+    %delay 10, 0;
+    %set/v v01201210_0, 1, 1;
+    %delay 10, 0;
+    %set/v v01201210_0, 1, 1;
+    %delay 10, 0;
+    %set/v v01201210_0, 1, 1;
+    %delay 10, 0;
+    %set/v v01201210_0, 0, 1;
+    %delay 10, 0;
+    %set/v v01201000_0, 1, 1;
+    %movi 8, 40, 8;
+    %set/v v01200F50_0, 8, 8;
+    %delay 10, 0;
+    %set/v v01201000_0, 1, 1;
+    %movi 8, 50, 8;
+    %set/v v01200F50_0, 8, 8;
+    %delay 10, 0;
+    %set/v v01201000_0, 1, 1;
+    %movi 8, 60, 8;
+    %set/v v01200F50_0, 8, 8;
+    %delay 10, 0;
+    %set/v v01201000_0, 1, 1;
+    %movi 8, 70, 8;
+    %set/v v01200F50_0, 8, 8;
+    %delay 10, 0;
+    %set/v v01201000_0, 1, 1;
+    %movi 8, 80, 8;
+    %set/v v01200F50_0, 8, 8;
+    %delay 10, 0;
+    %set/v v01201000_0, 0, 1;
+    %delay 10, 0;
+    %set/v v01201210_0, 1, 1;
+    %delay 10, 0;
+    %set/v v01201210_0, 1, 1;
+    %delay 10, 0;
+    %set/v v01201210_0, 1, 1;
+    %delay 10, 0;
+    %set/v v01201210_0, 1, 1;
+    %delay 10, 0;
+    %set/v v01201210_0, 1, 1;
+    %delay 10, 0;
+    %set/v v01201210_0, 0, 1;
+    %delay 20, 0;
+    %vpi_call 2 70 "$finish";
+    %end;
+    .thread T_4;
+    .scope S_012E8048;
+T_5 ;
+    %vpi_call 2 75 "$monitor", "Time=%0t | rst=%b | wr=%b | rd=%b | data_in=%h | data_out=%h | full=%b | empty=%b", $time, v01200EA0_0, v01201000_0, v01201210_0, v01200F50_0, v012013C8_0, v01201420_0, v01200DF0_0;
+    %end;
+    .thread T_5;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "fifo_tb.v";
+    "./fifo.v";
