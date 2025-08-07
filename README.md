@@ -127,4 +127,5 @@ The next step is to implement an **asynchronous FIFO**, which allows reliable da
 
 ## ⚖️ License
 
-nal and personal use under the [MIT License](https://github.com/VLSI-Shubh/FIFO/blob/000acc181063239838545712b3d4923562977808/License.txt)
+Open for educational and personal use under the [MIT License](https://github.com/VLSI-Shubh/FIFO/blob/000acc181063239838545712b3d4923562977808/License.txt)
+
