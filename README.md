@@ -96,11 +96,12 @@ To demonstrate the synthesizability of the FIFO design, a gate-level schematic w
 
 ## 🛠️ Tools Used
 
-| Tool               | Purpose                                           |
-|--------------------|---------------------------------------------------|
-| **Icarus Verilog** | Compile/simulate Verilog code                    |
-| **GTKWave**        | View simulation waveform dumps (`.vcd` files)    |
-| **EDA Playground** | Online Verilog editor and schematic viewer       |
+| Tool               | Purpose                                                |
+|--------------------|--------------------------------------------------------|
+| **Icarus Verilog** | Compile and simulate Verilog code                      |
+| **GTKWave**        | View simulation waveform dumps (`.vcd` files)          |
+| **Vivado**         | RTL synthesis and schematic generation |
+
 
 ---
 
@@ -140,6 +141,7 @@ The next step is to implement an **asynchronous FIFO**, which allows reliable da
 ## ⚖️ License
 
 Open for educational and personal use under the [MIT License](https://github.com/VLSI-Shubh/FIFO/blob/000acc181063239838545712b3d4923562977808/License.txt)
+
 
 
 
