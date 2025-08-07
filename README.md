@@ -73,7 +73,17 @@ The VCD file shows FIFO working correctly:
 * Flags `full` and `empty` change accurately based on buffer usage.
 
 ---
+## 🧩 Synthesized FIFO Schematic
 
+To demonstrate the synthesizability of the FIFO design, a gate-level schematic was generated post-synthesis using Vivado.
+
+- ✅ The schematic confirms correct RTL-to-gate mapping.
+- ✅ Key components such as counters, memory arrays, and control logic are correctly inferred.
+- ✅ No latches or synthesis warnings were observed, indicating clean design practices.
+
+📎 [View FIFO Schematic (PDF)](https://github.com/VLSI-Shubh/FIFO/blob/162de24e734fb30b577bfffb2f43e761cb7ec0d7/schematic_FIFO.pdf)
+
+---
 ## 📁 Project Files
 
 | File        | Description              |
@@ -128,4 +138,5 @@ The next step is to implement an **asynchronous FIFO**, which allows reliable da
 ## ⚖️ License
 
 Open for educational and personal use under the [MIT License](https://github.com/VLSI-Shubh/FIFO/blob/000acc181063239838545712b3d4923562977808/License.txt)
+
 
